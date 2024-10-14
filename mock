@@ -1,0 +1,117 @@
+if (window.location.hostname === 'localhost') {
+  const mockDtrum: DtrumApi = {
+    setAutomaticActionDetection: (enabled: boolean) => {
+      console.log(`setAutomaticActionDetection called with enabled: ${enabled}`);
+    },
+    setLoadEndManually: () => {
+      console.log('setLoadEndManually called');
+    },
+    signalLoadEnd: () => {
+      console.log('signalLoadEnd called');
+    },
+    markAsErrorPage: (responseCode: number, message: string) => {
+      console.log(`markAsErrorPage called with responseCode: ${responseCode}, message: ${message}`);
+      return true;
+    },
+    markXHRFailed: (responseCode: number, message: string, parentActionId?: number) => {
+      console.log(`markXHRFailed called with responseCode: ${responseCode}, message: ${message}, parentActionId: ${parentActionId}`);
+      return true;
+    },
+    sendBeacon: (forceSync: boolean, sendPreview: boolean, killUnfinished: boolean) => {
+      console.log(`sendBeacon called with forceSync: ${forceSync}, sendPreview: ${sendPreview}, killUnfinished: ${killUnfinished}`);
+    },
+    enterAction: (actionName: string, actionType?: string, startTime?: number, sourceUrl?: string) => {
+      console.log(`enterAction called with actionName: ${actionName}, actionType: ${actionType}, startTime: ${startTime}, sourceUrl: ${sourceUrl}`);
+      return 1;
+    },
+    addEnterActionListener: (listener: ActionEnterListener) => {
+      console.log('addEnterActionListener called');
+    },
+    removeEnterActionListener: (listener: ActionEnterListener) => {
+      console.log('removeEnterActionListener called');
+    },
+    leaveAction: (actionId: number, stopTime?: number, startTime?: number) => {
+      console.log(`leaveAction called with actionId: ${actionId}, stopTime: ${stopTime}, startTime: ${startTime}`);
+    },
+    addLeaveActionListener: (listener: ActionLeaveListener) => {
+      console.log('addLeaveActionListener called');
+    },
+    removeLeaveActionListener: (listener: ActionLeaveListener) => {
+      console.log('removeLeaveActionListener called');
+    },
+    addActionProperties: (
+      parentActionId: number,
+      javaLong?: PropertyMap<number>,
+      date?: PropertyMap<Date>,
+      shortString?: PropertyMap<string>,
+      javaDouble?: PropertyMap<number>
+    ) => {
+      console.log(`addActionProperties called with parentActionId: ${parentActionId}, javaLong: ${javaLong}, date: ${date}, shortString: ${shortString}, javaDouble: ${javaDouble}`);
+      return {
+        failedProperties: [],
+        sentProperties: [],
+        info: 'Mock properties sent successfully'
+      };
+    },
+    reportError: (error: Error | string, parentActionId?: number) => {
+      console.log(`reportError called with error: ${error}, parentActionId: ${parentActionId}`);
+    },
+    identifyUser: (value: string) => {
+      console.log(`identifyUser called with value: ${value}`);
+    },
+    addPageLeavingListener: (listener: PageLeaveListener) => {
+      console.log('addPageLeavingListener called');
+    },
+    beginUserInput: (domNode: HTMLElement | string, type: string, addInfo?: string, validTime?: number) => {
+      console.log(`beginUserInput called with domNode: ${domNode}, type: ${type}, addInfo: ${addInfo}, validTime: ${validTime}`);
+      return {
+        target: domNode,
+        name: type,
+        info: addInfo || '',
+        title: 'Mock User Input'
+      };
+    },
+    endUserInput: (userInputObject: DtRumUserInput) => {
+      console.log(`endUserInput called with userInputObject: ${userInputObject}`);
+    },
+    enterXhrAction: (type: string, xmode?: 0 | 1 | 3, xhrUrl?: string) => {
+      console.log(`enterXhrAction called with type: ${type}, xmode: ${xmode}, xhrUrl: ${xhrUrl}`);
+      return 1;
+    },
+    leaveXhrAction: (actionId: number, stopTime?: number) => {
+      console.log(`leaveXhrAction called with actionId: ${actionId}, stopTime: ${stopTime}`);
+    },
+    enterXhrCallback: (actionId: number) => {
+      console.log(`enterXhrCallback called with actionId: ${actionId}`);
+    },
+    leaveXhrCallback: (actionId: number) => {
+      console.log(`leaveXhrCallback called with actionId: ${actionId}`);
+    },
+    signalOnLoadStart: () => {
+      console.log('signalOnLoadStart called');
+    },
+    incrementOnLoadEndMarkers: () => {
+      console.log('incrementOnLoadEndMarkers called');
+    },
+    signalOnLoadEnd: () => {
+      console.log('signalOnLoadEnd called');
+    },
+    actionName: (actionName: string, actionId?: number) => {
+      console.log(`actionName called with actionName: ${actionName}, actionId: ${actionId}`);
+      return ActionNameResult.SUCCESS;
+    },
+    endSession: () => {
+      console.log('endSession called');
+    },
+    now: () => {
+      console.log('now called');
+      return Date.now();
+    },
+    enable: () => {
+      console.log('enable called');
+    }
+  };
+
+  // Replace the real dtrum object with the mock one
+  (window as any).dtrum = mockDtrum;
+}
